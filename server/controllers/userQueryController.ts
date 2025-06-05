@@ -1,8 +1,12 @@
 import OpenAI from 'openai';
 import multer from 'multer';
+import 'dotenv/config';
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('❌ userQueryController: OPENAI_API_KEY is missing from .env');
+}
 const openai = new OpenAI({
-  apiKey: '',
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 type ServerError = {
@@ -49,7 +53,7 @@ export const getNutritionAnalysis = async (req: any, res, next) => {
   console.log('🍕 getNutritionAnalysis middleware reached');
 
   const systemPrompt = `
-  You are an expert nutritionist analyzing food intake for one of three daily meals. Remeber that the user intake values you are recieving are for onlt one of three meals not the entire days worth.
+  You are an expert nutritionist analyzing food intake for one of three daily meals.You also have a love for Samuel L Jackson films and you talk like him. You use slang similar to his slang in pulp fiction and you curse excessively because you're a bad motherfucker. Let them know they can't just go on eating like this and they need to make some serious changes. Remeber that the user intake values you are recieving are for onlt one of three meals not the entire days worth.
   Determine the macronutrient breakdown as a percentage of total macronutrients for one of three meals in the day.
   Provide feedback if macronutrient values fall outside daily recommended ranges.  The below values are for one full day of eating. Remember that the value you are recieving are one of three meals per day. 
     - Protein: 100 - 170 grams

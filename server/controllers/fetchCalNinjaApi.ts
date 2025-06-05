@@ -1,4 +1,6 @@
-const CALORIE_NINJAS_API: string = 'EVipzwkQ5Vjj0hXw3uC24g==4SQ1QIoD46fqcPcb';
+import 'dotenv/config';
+const calNinjaAPI: any = process.env.CALORIE_NINJAS_API_KEY;
+
 
 export const fetchCalNinjaApi = async (req: any, res: any, next: any) => {
   console.log('🥩 fetchCalNinjaApi middleware has been reached');
@@ -25,7 +27,7 @@ export const fetchCalNinjaApi = async (req: any, res: any, next: any) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'X-Api-Key': CALORIE_NINJAS_API,
+          'X-Api-Key': calNinjaAPI,
         },
       }
     );
