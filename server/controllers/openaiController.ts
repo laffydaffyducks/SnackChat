@@ -7,15 +7,11 @@ export type ServerError = {
   message: { err: string };
 };
 
-// const calNinjaAPI = process.env.CALORIE_NINJAS_API
-// console.log(calNinjaAPI)
-//   console.log('🔑 OpenAI API Key:', process.env.OPENAI_API_KEY);
-//   const openAIKey: string = process.env.OPENAI_API_KEY || "";
-//   if (!openAIKey) {
-//     throw new Error("The OPENAI_API_KEY environment variable is missing or empty.");
-//   }
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('❌ OpenaiController: OPENAI_API_KEY is missing from .env');
+}
 const openai = new OpenAI({
-  apiKey: '',
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export const openAIFoodBreakdown = async (req: any, res, next) => {
